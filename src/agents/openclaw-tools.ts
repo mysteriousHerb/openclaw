@@ -24,6 +24,7 @@ import { createSubagentsTool } from "./tools/subagents-tool.js";
 import { createTtsTool } from "./tools/tts-tool.js";
 import { createWebFetchTool, createWebSearchTool } from "./tools/web-tools.js";
 import { resolveWorkspaceRoot } from "./workspace-dir.js";
+import type { TtsConfig } from "../config/types.tts.js";
 
 export function createOpenClawTools(
   options?: {
@@ -36,6 +37,7 @@ export function createOpenClawTools(
     agentTo?: string;
     /** Thread/topic identifier for routing replies to the originating thread. */
     agentThreadId?: string | number;
+    agentTts?: TtsConfig;
     agentDir?: string;
     sandboxRoot?: string;
     sandboxFsBridge?: SandboxFsBridge;
@@ -145,6 +147,7 @@ export function createOpenClawTools(
     createTtsTool({
       agentChannel: options?.agentChannel,
       config: options?.config,
+      agentTts: options?.agentTts,
     }),
     createGatewayTool({
       agentSessionKey: options?.agentSessionKey,

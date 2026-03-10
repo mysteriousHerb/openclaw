@@ -139,6 +139,31 @@ Full schema is in [Gateway configuration](/gateway/configuration).
 }
 ```
 
+### Agent-specific Overrides
+
+You can provide per-agent TTS configuration in the `agents` block. These values deep-merge with the global settings defined in `messages.tts`, meaning an agent only needs to override the specific properties it changes (like a `voiceId` or `provider`).
+
+```json5
+{
+  agents: {
+    list: [
+      {
+        id: "my-custom-agent",
+        tts: {
+          provider: "elevenlabs",
+          elevenlabs: {
+            voiceId: "specific-agent-voice-id",
+            voiceSettings: {
+              stability: 0.9,
+            }
+          }
+        }
+      }
+    ]
+  }
+}
+```
+
 ### Disable Edge TTS
 
 ```json5

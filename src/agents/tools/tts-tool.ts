@@ -5,6 +5,7 @@ import { loadConfig } from "../../config/config.js";
 import { textToSpeech } from "../../tts/tts.js";
 import type { GatewayMessageChannel } from "../../utils/message-channel.js";
 import type { AnyAgentTool } from "./common.js";
+import type { TtsConfig } from "../../config/types.tts.js";
 import { readStringParam } from "./common.js";
 
 const TtsToolSchema = Type.Object({
@@ -17,6 +18,7 @@ const TtsToolSchema = Type.Object({
 export function createTtsTool(opts?: {
   config?: OpenClawConfig;
   agentChannel?: GatewayMessageChannel;
+  agentTts?: TtsConfig;
 }): AnyAgentTool {
   return {
     label: "TTS",
@@ -31,6 +33,7 @@ export function createTtsTool(opts?: {
       const result = await textToSpeech({
         text,
         cfg,
+        agentTts: opts?.agentTts,
         channel: channel ?? opts?.agentChannel,
       });
 

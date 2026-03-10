@@ -4,6 +4,7 @@ import type { AgentModelConfig, AgentSandboxConfig } from "./types.agents-shared
 import type { HumanDelayConfig, IdentityConfig } from "./types.base.js";
 import type { GroupChatConfig } from "./types.messages.js";
 import type { AgentToolsConfig, MemorySearchConfig } from "./types.tools.js";
+import type { TtsConfig } from "./types.tts.js";
 
 export type AgentRuntimeAcpConfig = {
   /** ACP harness adapter id (for example codex, claude). */
@@ -74,6 +75,7 @@ export type AgentConfig = {
   heartbeat?: AgentDefaultsConfig["heartbeat"];
   identity?: IdentityConfig;
   groupChat?: GroupChatConfig;
+  tts?: TtsConfig;
   subagents?: {
     /** Allow spawning sub-agents under other agent ids. Use "*" to allow any. */
     allowAgents?: string[];
