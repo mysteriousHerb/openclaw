@@ -1,5 +1,7 @@
 import type { OpenClawConfig } from "../../config/config.js";
 import type { TtsAutoMode } from "../../config/types.tts.js";
+import { resolveAgentIdFromSessionKey } from "../../routing/session-key.js";
+
 import { logVerbose } from "../../globals.js";
 import { runMessageAction } from "../../infra/outbound/message-action-runner.js";
 import { maybeApplyTtsToPayload } from "../../tts/tts.js";
@@ -132,6 +134,7 @@ export function createAcpDispatchDeliveryCoordinator(params: {
     }
 
     const ttsPayload = await maybeApplyTtsToPayload({
+      agentTts: params.cfg.agents?.list?.find((a) => a.id === resolveAgentIdFromSessionKey(params.ctx.SessionKey || ""))?.tts,
       payload,
       cfg: params.cfg,
       channel: params.ttsChannel,

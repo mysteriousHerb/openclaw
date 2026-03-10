@@ -312,11 +312,14 @@ export async function tryDispatchAcpReply(params: {
     });
 
     await projector.flush(true);
-    const ttsMode = resolveTtsConfig(params.cfg).mode ?? "final";
     const accumulatedBlockText = delivery.getAccumulatedBlockText();
+    const agentId = resolveAgentIdFromSessionKey(sessionKey) || "";
+    const agentTts = params.cfg.agents?.list?.find((a) => a.id === agentId)?.tts;
+    const ttsMode = resolveTtsConfig(params.cfg, agentTts).mode ?? "final";
     if (ttsMode === "final" && delivery.getBlockCount() > 0 && accumulatedBlockText.trim()) {
       try {
         const ttsSyntheticReply = await maybeApplyTtsToPayload({
+          agentTts,
           payload: { text: accumulatedBlockText },
           cfg: params.cfg,
           channel: params.ttsChannel,
