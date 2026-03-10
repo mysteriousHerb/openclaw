@@ -473,7 +473,7 @@ export function createOpenClawCodingTools(options?: {
     // Channel docking: include channel-defined agent tools (login, etc.).
     ...listChannelAgentTools({ cfg: options?.config }),
     ...createOpenClawTools({
-      agentTts: options?.config?.agents?.list?.find((a) => a.id === options?.agentId)?.tts,
+      agentTts: options?.config?.agents?.list?.find((a) => a.id === agentId)?.tts,
       sandboxBrowserBridgeUrl: sandbox?.browser?.bridgeUrl,
       allowHostBrowserControl: sandbox ? sandbox.browserAllowHostControl : true,
       agentSessionKey: options?.sessionKey,
